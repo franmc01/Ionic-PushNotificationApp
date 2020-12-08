@@ -3,13 +3,26 @@
     <ion-title>
       Notificaciones
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="borrarMensajes()">
+        <ion-icon slot="start" name="trash" color="danger"></ion-icon>
+        Limpiar
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-list>
     <ion-list-header>
-      <ion-label>Listado de las Pushes</ion-label>
+      <ion-label>UserID:</ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-label>{{ idUsuario }}</ion-label>
+    </ion-item>
+
+    <ion-list-header>
+      <ion-label>Notificaciones recibidas</ion-label>
     </ion-list-header>
     <ion-item *ngFor="let push of mensajes">
       <ion-label>

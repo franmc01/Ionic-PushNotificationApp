@@ -14,6 +14,7 @@ export class PushNotiService {
     //   fecha: new Date()
     // }
   ];
+  userID: string;
 
   pushListener = new EventEmitter<OSNotificationPayload>();
 
@@ -40,6 +41,11 @@ export class PushNotiService {
       console.log('Notificacion abierta: ', noti);
       await this.notificacionRecibida(noti.notification);
     });
+
+    //Obtener ID del suscriptor
+    this.oneSignal.getIds().then(info=>{
+      this.userID = info.userId;
+    })
     this.oneSignal.endInit();
   }
 
@@ -66,5 +72,11 @@ export class PushNotiService {
   async cargarMensajes(){
     this.mensajes = await this.storage.get('mensajes') || [];
     return this.mensajes;
+  }
+
+  async borrarMensajes(){
+    await this.storage.remove('mensajes');
+    this.mensajes = [];
+    this.guardarMensajes();
   }
 }
